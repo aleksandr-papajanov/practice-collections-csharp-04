@@ -139,18 +139,16 @@ bool IsSymbolBalanced(string text, Dictionary<char, char> pairs)
             continue;
         } 
 
-        var closing = pairs.Select(x => x.Value).FirstOrDefault(x => x == current);
-
-        if (closing != char.MinValue)
+        if (pairs.Select(x => x.Value).Any(x => x == current))
         {
-            // If there's no respective bracket for the closing one, return false
+            // If there's no respective bracket, return false
             if (!stack.TryPeek(out char top))
             {
                 return false;
             }
 
-            // If there is no match for the closing bracket, return false
-            if (!pairs.Where(x => x.Key == top && x.Value == closing).Any())
+            // If there is no match between brackets, return false
+            if (!pairs.Where(x => x.Key == top && x.Value == current).Any())
             {
                 return false;
             }
