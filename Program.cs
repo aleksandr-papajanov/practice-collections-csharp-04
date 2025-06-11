@@ -3,10 +3,8 @@
 ExamineList();
 ExamineQueue();
 ExamineStack();
+CheckBrackets();
 
-CheckBrackets("({[]})({[]})");
-CheckBrackets("new Stack<string>([ \"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Eve\" ])");
-CheckBrackets("new List<int>([ 1, 2, 3 })");
 
 void ExamineList()
 {
@@ -102,9 +100,16 @@ string ReverseText(string text)
 }
 
 
-void CheckBrackets(string text)
+void CheckBrackets()
 {
+    Console.WriteLine("Examining brackets...");
+    Console.Write("Enter any text: ");
+
+    var text = Console.ReadLine() ?? string.Empty;
+    //var text = "[{}{}[]() ({[]})]";
+
     Console.WriteLine($"Checking brackets in: {text}");
+
     Dictionary<char, char> pairs = new()
     {
         { '(', ')' },
@@ -112,13 +117,13 @@ void CheckBrackets(string text)
         { '[', ']' }
     };
 
-    if (IsSymbolBalanced(text, pairs))
+    if (IsSymbolBalanced(text, pairs))    
     {
-        Console.WriteLine("Brackets are not balanced!");
+        Console.WriteLine("Brackets are balanced!");
     }
     else
     {
-        Console.WriteLine("Brackets are balanced!");
+        Console.WriteLine("Brackets are not balanced!");
     }
 }
 
@@ -132,7 +137,7 @@ bool IsSymbolBalanced(string text, Dictionary<char, char> pairs)
         {
             stack.Push(current);
             continue;
-        }
+        } 
 
         var closing = pairs.Select(x => x.Value).FirstOrDefault(x => x == current);
 
